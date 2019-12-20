@@ -1,4 +1,6 @@
+import config.Assets;
 import de.ur.mi.oop.app.GraphicsApp;
+import de.ur.mi.oop.audio.AudioClip;
 import de.ur.mi.oop.colors.Colors;
 import config.GameConfig;
 import de.ur.mi.oop.events.KeyPressedEvent;
@@ -7,10 +9,11 @@ import intro.IntroScene;
 import scenes.Scene;
 import scenes.SceneListener;
 
-public class SnowballFight extends GraphicsApp implements GameConfig, SceneListener {
+public class SnowballFight extends GraphicsApp implements GameConfig, Assets, SceneListener {
 
     private Scene[] scenes;
     private Scene currentScene;
+    private AudioClip backgroundMusic;
 
     @Override
     public void initialize() {
@@ -18,6 +21,7 @@ public class SnowballFight extends GraphicsApp implements GameConfig, SceneListe
         setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         preloadScenes();
         setScene(INTRO_SCENE_TAG);
+        initBackgroundMusic();
     }
 
     private void preloadScenes() {
@@ -34,6 +38,11 @@ public class SnowballFight extends GraphicsApp implements GameConfig, SceneListe
             }
         }
         currentScene.initialize();
+    }
+
+    private void initBackgroundMusic() {
+        backgroundMusic = new AudioClip(BACKGROUND_MUSIC_PATH);
+        backgroundMusic.loop();
     }
 
     @Override
